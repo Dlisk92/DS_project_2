@@ -26,6 +26,61 @@ Carson Lloyd, Sam Videlock, Aneeta Khoso, Dylan Lisk, Anup Sebastian
 ### Original Model
 This is the model using the given data for King County in 2014 & 2015.
 
+```python
+from pygam.terms import s as spline
+from pygam.terms import f as factor
+from pygam.terms import te as tensor
+
+
+# DEFINE TERMS:
+#   * splines - for continuous
+#   * factors - for categorical/discrete 
+#        (assumption: label encoded w/ 0 to level_size-1)
+#   * tensors - for any interactions
+
+# create the term list
+term_list = []
+for i, col in enumerate(used_cols):
+    if col in real_cols:
+        term_list.append(spline(i))
+
+# add the x1 and x2 interaction term
+term_list.append(tensor(1, 2))
+term_list.append(tensor(0, 1, 2))
+term_list.append(tensor(5, 6))
+term_list.append(tensor(1, 2, 12))
+# term_list.append(tensor(7, 8, 10))
+# term_list.append(tensor(0, 4))
+# term_list.append(tensor(0, 1, 2, 3))
+
+
+
+
+# factors
+for i, col in enumerate(used_cols):
+    if col in cat_cols:
+        term_list.append(factor(i))
+
+
+# create the terms and model
+terms = np.sum(term_list)
+print(terms)
+gc.collect
+# gam = LinearGAM(terms=terms).gridsearch(X.values, y.values)
+# gam.summary()
+```
+#### With those above terms created through trial and intuition.
+
+```python
+# Playing with distribution assumptions and link functions
+from pygam import GAM
+
+
+gam = GAM(terms=terms, distribution='gamma', link='log')
+gam.gridsearch(X.values, y.values)
+gam.summary()
+```
+
 1. The 'Original_Model.ipynb' is where our final model is for the original data. Comments can be found in the file.
 2. This uses data in the 'Cleaned_Housing_Data_vDL.csv' which was derived from the data cleaning python file.
 
