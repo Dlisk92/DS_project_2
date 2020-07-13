@@ -19,6 +19,7 @@ Carson Lloyd, Sam Videlock, Aneeta Khoso, Dylan Lisk, Anup Sebastian
 
 1. The original dataset is found in the csv 'kc_house_data.csv'
 2. The 'Cleanup, EDA and Transformations.ipynb' file shows our complete data processing stage. Notes are compiled in the file.
+3. It is interesting to note that the area measurments(sqft of lot and living space) responed well to log transformation while more  uniformly different indicators responded better to boxcox
 
 ### Original Model
 This is the model using the given data for King County in 2014 & 2015.
