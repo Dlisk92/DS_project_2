@@ -70,7 +70,7 @@ gc.collect
 # gam.summary()
 ```
 #### With those above terms created through trial and intuition.
-
+#### The terms are summed and fed into the generalized additive model as the equation to be optimize
 ```python
 # Playing with distribution assumptions and link functions
 from pygam import GAM
